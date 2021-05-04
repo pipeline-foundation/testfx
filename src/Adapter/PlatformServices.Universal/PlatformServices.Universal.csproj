@@ -170,6 +170,7 @@
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>
+  <!--<Import Project="..\PlatformServices.Shared\PlatformServices.Shared.projitems" Label="Shared" />-->
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '15.0' ">
     <VisualStudioVersion>15.0</VisualStudioVersion>
   </PropertyGroup>

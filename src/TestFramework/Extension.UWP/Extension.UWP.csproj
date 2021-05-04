@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TestFxRoot Condition="$(TestFxRoot) == ''">..\..\..\</TestFxRoot>
   </PropertyGroup>
@@ -107,7 +107,7 @@
     <Compile Include="DeploymentItemAttribute.cs" />
     <Compile Include="UITestMethodAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\Extension.UWP.rd.xml" />
+    <Content Include="Properties\Extension.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MSTest.Core\MSTest.Core.csproj">
@@ -121,11 +121,4 @@
     <VisualStudioVersion>15.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(TestFxRoot)scripts\build\TestFx.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

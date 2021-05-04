@@ -17,6 +17,8 @@
 .vs/
 .vscode/
 *.cache
+.dotnet
+.tools
 
 # Build results
 [Bb]in/

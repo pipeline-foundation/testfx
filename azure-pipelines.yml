@@ -1,44 +1,59 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - arcade-transition
 
-# Pipeline YAML for PR
+pr:
+  branches:
+    include:
+    - arcade-transition
 
-jobs:
-- job: Windows
-  pool:
-    vmImage: 'windows-2019'
-  variables:
-    buildConfiguration: 'Release'
+variables:
+- template: eng/common-variables.yml
 
-  steps:
-
-  - task: NuGetToolInstaller@0
-    displayName: 'Pull in NuGet 5.8.1'
-    inputs:
-      versionSpec: 5.8.1
-  
-  - powershell: |
-      reg DELETE "HKLM\Software\Microsoft\StrongName\Verification" /f
-      reg ADD "HKLM\Software\Microsoft\StrongName\Verification\*,*" /f
-      reg DELETE "HKLM\Software\Wow6432Node\Microsoft\StrongName\Verification" /f
-      reg ADD "HKLM\Software\Wow6432Node\Microsoft\StrongName\Verification\*,*" /f
-    displayName: 'Disable strongname validation'
-
-  - task: BatchScript@1
-    displayName: 'Restore, Build and Package'
-    inputs:
-      filename: build.cmd
-      arguments: '-configuration $(BuildConfiguration) -Full'
-      modifyEnvironment: false
-
-  - task: BatchScript@1
-    displayName: 'Run All Tests'
-    inputs:
-      filename: test.cmd
-      arguments: '-configuration $(BuildConfiguration) -all -parallel'
-      modifyEnvironment: false
-  
-  - task: PublishTestResults@2
-    displayName: 'Publish Test Results **\*.trx'
-    inputs:
-      testResultsFormat: VSTest
-      testResultsFiles: '**\*.trx'
-    condition: succeededOrFailed()
+stages:
+- stage: build
+  displayName: Build
+  jobs:
+  - template: /eng/common/templates/jobs/jobs.yml
+    parameters:
+      artifacts:
+        publish:
+          artifacts: true
+          logs: true
+          manifests: true
+      enableMicrobuild: true
+      enablePublishUsingPipelines: true
+      enableSourceIndex: false
+      enableSourceBuild: false
+      workspace:
+        clean: all
+      jobs:
+      - job: Windows_NT
+        timeoutInMinutes: 90
+        pool:
+          ${{ if eq(variables._RunAsPublic, True) }}:
+            name: NetCorePublic-Pool
+            queue: BuildPool.Server.Amd64.VS2019.Open
+          ${{ if eq(variables._RunAsInternal, True) }}:
+            name: NetCoreInternal-Pool
+            queue: BuildPool.Server.Amd64.VS2019
+        strategy:
+          matrix:
+            Build_Release:
+              _BuildConfig: Release
+            ${{ if eq(variables._RunAsPublic, True) }}:
+              Build_Debug:
+                _BuildConfig: Debug
+        preSteps:
+        - checkout: self
+          clean: true
+        steps:
+        - script: eng\common\cibuild.cmd
+            -configuration $(_BuildConfig)
+            -prepareMachine
+            $(_InternalBuildArgs)
+            /p:Test=false
+          displayName: Windows Build / Publish
+        - task: ComponentGovernanceComponentDetection@0

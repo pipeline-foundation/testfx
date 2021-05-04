@@ -3,26 +3,34 @@
 
 # Common utilities for building solution and running tests
 
+$TF_ROOT_DIR = (Get-Item (Split-Path $MyInvocation.MyCommand.Path)).Parent.FullName
+$TF_VERSIONS_FILE = "$TF_ROOT_DIR\eng\Versions.props"
+
+function Get-PackageVersion ([string]$PackageName) {
+  $packages = ([XML](Get-Content $TF_VERSIONS_FILE)).Project.PropertyGroup
+  
+  return $packages[$PackageName].InnerText;
+}
+
 #
 # Global Variables
 #
-$global:msbuildVersion = "15.0"
-$global:nugetVersion = "5.8.1"
-$global:vswhereVersion = "2.0.2"
+$global:msbuildVersion = "16.0"
+$global:nugetVersion = Get-PackageVersion -PackageName "NuGetVersion"
+$global:vswhereVersion = Get-PackageVersion -PackageName "VsWhereVersion"
 $global:nugetUrl = "https://dist.nuget.org/win-x86-commandline/v$nugetVersion/NuGet.exe"
 
 #
 # Global Environment Variables
 #
-$env:TF_ROOT_DIR = (Get-Item (Split-Path $MyInvocation.MyCommand.Path)).Parent.FullName
+$env:TF_ROOT_DIR = $TF_ROOT_DIR
 $env:TF_OUT_DIR = Join-Path $env:TF_ROOT_DIR "artifacts"
 $env:TF_SRC_DIR = Join-Path $env:TF_ROOT_DIR "src"
 $env:TF_TEST_DIR = Join-Path $env:TF_ROOT_DIR "test"
 $env:TF_PACKAGES_DIR = Join-Path $env:TF_ROOT_DIR "packages"
 
-$TF_VERSIONS_FILE = "$PSScriptRoot\build\TestFx.Versions.targets"
 if ([String]::IsNullOrWhiteSpace($TestPlatformVersion)) {
-  $TestPlatformVersion = (([XML](Get-Content $TF_VERSIONS_FILE)).Project.PropertyGroup.TestPlatformVersion).InnerText
+  $TestPlatformVersion = Get-PackageVersion -PackageName "MicrosoftNetTestSdkVersion"
 }
 
 function Create-Directory([string[]] $path) {
@@ -120,7 +128,10 @@ function Locate-PackagesPath {
 function Locate-VsWhere {
   $packagesPath = Locate-PackagesPath 
 
-  $vswhere = Join-Path -path $packagesPath -childPath "vswhere.$vswhereVersion\tools\vswhere.exe"
+  $vswhere = Join-Path -path $packagesPath -childPath "vswhere\$vswhereVersion\tools\vswhere.exe"
+  if (-not (Test-Path $vswhere)) {
+    $vswhere = Join-Path -path $packagesPath -childPath "vswhere.$vswhereVersion\tools\vswhere.exe"
+  }
 
   Write-Verbose "vswhere location is : $vswhere"
   return $vswhere

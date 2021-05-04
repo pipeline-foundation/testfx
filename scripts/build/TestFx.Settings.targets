@@ -4,12 +4,16 @@
     <TestFxRoot Condition="$(TestFxRoot) == ''">..\..\</TestFxRoot>
     <RepoRoot Condition="$(RepoRoot) == ''">$(MSBuildThisFileDirectory)..\..\</RepoRoot>
     <IncludeMicrosoftCommon Condition="$(IncludeMicrosoftCommon) == ''">true</IncludeMicrosoftCommon>
+
+    <_OrginalVersionsPropsPath Condition="$(_OrginalVersionsPropsPath) == ''">$(VersionsPropsPath)</_OrginalVersionsPropsPath>
+    <VersionsPropsPath Condition="$(VersionsPropsPath) == ''">$(RepoRoot)eng\Versions.props</VersionsPropsPath>
   </PropertyGroup>
 
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props') and $(FrameworkIdentifier) != 'NetCore' and $(IncludeMicrosoftCommon) == 'true'" />
-  <!-- Import props/targets with $(RepoRoot) since msbuild takes the relative path based on settings.targets and not with respect to the project. -->
-  <Import Project="$(RepoRoot)packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props" Condition="Exists('$(RepoRoot)packages\MicroBuild.Core.0.2.0\build\MicroBuild.Core.props')" />
-  <Import Project="TestFx.Versions.targets" />
+  <Import Project="$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.props" Condition="Exists('$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.props')" />
+  
+  <!-- This is imported by the Arcade -->
+  <!-- <Import Project="$(VersionsPropsPath)" Condition="$(_OrginalVersionsPropsPath) == ''" />  -->
 
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -17,8 +21,8 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <GenerateLCE>true</GenerateLCE>
-    <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)key.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
+    <!-- <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)key.snk</AssemblyOriginatorKeyFile> -->
+    <!-- <SignAssembly>true</SignAssembly> -->
     <PublicSign Condition="'$(IsLocalizedBuild)' == '' or '$(IsLocalizedBuild)' != 'true'">true</PublicSign>
     <!-- Temporarily turning on Delay signing for Localized builds because publickey = true is not passed on to the assembler to create resource assmblies.-->
     <DelaySign Condition="'$(IsLocalizedBuild)' == 'true'">true</DelaySign>

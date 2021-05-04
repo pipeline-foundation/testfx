@@ -310,15 +310,15 @@ function Replace-InFile($File, $RegEx, $ReplaceWith) {
 }
 
 function Sync-PackageVersions {
-  $versionsRegex = '(?mi)<(TestPlatformVersion.*?)>(.*?)<\/TestPlatformVersion>'
+  $versionsRegex = '(?mi)<(MicrosoftNetTestSdkVersion.*?)>(.*?)<\/MicrosoftNetTestSdkVersion>'
   $packageRegex = '(?mi)<package id="Microsoft\.TestPlatform([0-9a-z.]+)?" version="([0-9a-z.-]*)"'
   $sourceRegex = '(?mi)(.+[a-z =]+\@?\")Microsoft\.TestPlatform\.([0-9.-a-z]+)\";'
 
   if ([String]::IsNullOrWhiteSpace($TestPlatformVersion)) {
-    $TestPlatformVersion = (([XML](Get-Content $TF_VERSIONS_FILE)).Project.PropertyGroup.TestPlatformVersion).InnerText
+    $TestPlatformVersion = (([XML](Get-Content $TF_VERSIONS_FILE)).Project.PropertyGroup.MicrosoftNetTestSdkVersion).InnerText
   }
   else {
-    Replace-InFile -File $TF_VERSIONS_FILE -RegEx $versionsRegex -ReplaceWith "<`$1>$TestPlatformVersion</TestPlatformVersion>"
+    Replace-InFile -File $TF_VERSIONS_FILE -RegEx $versionsRegex -ReplaceWith "<`$1>$TestPlatformVersion</MicrosoftNetTestSdkVersion>"
   }
 
   (Get-ChildItem "$PSScriptRoot\..\src\*packages.config", "$PSScriptRoot\..\test\*packages.config" -Recurse) | ForEach-Object {

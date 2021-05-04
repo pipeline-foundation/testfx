@@ -129,9 +129,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.TestPlatform.AdapterUtilities" Version="$(TestPlatformVersion)" />
-    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="$(TestPlatformVersion)" />
-    <PackageReference Include="MicroBuild.Core" Version="0.2.0" PrivateAssets="all">
+    <PackageReference Include="Microsoft.TestPlatform.AdapterUtilities" Version="$(MicrosoftNetTestSdkVersion)" />
+    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="$(MicrosoftNetTestSdkVersion)" />
+    <PackageReference Include="MicroBuild.Core" Version="$(MicroBuildVersion)" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="StyleCop.Analyzers" Version="1.0.0" PrivateAssets="all">

@@ -11,7 +11,7 @@
     <RootNamespace>MSTestAdapter.PlatformServices.NetCore.UnitTests</RootNamespace>
     <AssemblyName>MSTestAdapter.PlatformServices.NetCore.UnitTests</AssemblyName>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <NoWarn>CS1685</NoWarn>
+    <NoWarn>CS1685;NETSDK1023</NoWarn>
   </PropertyGroup>
   <Import Project="$(TestFxRoot)scripts\build\TestFx.Settings.targets" />
   
@@ -38,8 +38,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(TestPlatformVersion)" />
-    <PackageReference Include="Microsoft.TestPlatform.AdapterUtilities" Version="$(TestPlatformVersion)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="$(MicrosoftNetTestSdkVersion)" />
+    <PackageReference Include="Microsoft.TestPlatform.AdapterUtilities" Version="$(MicrosoftNetTestSdkVersion)" />
     <PackageReference Include="Moq" Version="4.7.63" />
   </ItemGroup>
 
