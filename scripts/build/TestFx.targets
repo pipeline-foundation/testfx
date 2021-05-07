@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <!-- Import props/targets with $(RepoRoot) since msbuild takes the relative path based on settings.targets and not with respect to the project. -->
-  <Import Project="$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.targets" Condition="Exists('$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.targets')" />
+  <!-- <Import Project="$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.targets" Condition="Exists('$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.targets')" /> -->
 
   <!-- Import localization specific Targets if enabled. -->
   <Import Project="$(MSBuildThisFileDirectory)TestFx.Loc.targets" Condition="($(IsTest) == '' or $(IsTest) == 'false') and $(IsLocalizationEnabled) == 'true'"/>
@@ -52,13 +52,13 @@
     </SignFilesDependsOn>
   </ItemGroup>-->
 
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+  <!-- <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.props')" Text="$([System.String]::Format('$(ErrorText)', '$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.props'))" />
     <Error Condition="!Exists('$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.targets'))" />
-  </Target>
+  </Target> -->
 
   <Target Name="GatherLocalizedOutputsForSigning" DependsOnTargets="TestFxLocalization">
     <ItemGroup>

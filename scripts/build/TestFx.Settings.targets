@@ -10,7 +10,9 @@
   </PropertyGroup>
 
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props') and $(FrameworkIdentifier) != 'NetCore' and $(IncludeMicrosoftCommon) == 'true'" />
-  <Import Project="$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.props" Condition="Exists('$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.props')" />
+
+  <!-- This is imported by MicroBuild NuGet package -->
+  <!-- <Import Project="$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.props" Condition="Exists('$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.props')" /> -->
   
   <!-- This is imported by the Arcade -->
   <!-- <Import Project="$(VersionsPropsPath)" Condition="$(_OrginalVersionsPropsPath) == ''" />  -->
