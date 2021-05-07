@@ -31,10 +31,6 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <IsTest Condition="$(MSBuildProjectDirectory.Contains('\test\'))">true</IsTest>
-  </PropertyGroup>
-
   <!-- Code analysis settings -->
   <PropertyGroup>
     <RunCodeAnalysis>false</RunCodeAnalysis>
