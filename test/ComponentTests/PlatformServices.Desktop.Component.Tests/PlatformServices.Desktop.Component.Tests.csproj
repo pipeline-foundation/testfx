@@ -21,9 +21,7 @@
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
     <TargetFrameworkProfile />
-    
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
-
     <NoWarn>CS0234; CS0248; CS0616</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -41,7 +39,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.2.1" targetFramework="net451" />
     <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="$(MicrosoftNetTestSdkVersion)" targetFramework="net451" />
@@ -53,7 +50,6 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.3.0" targetFramework="net451" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" targetFramework="net451" />
   </ItemGroup>
-  
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -62,13 +58,11 @@
   <ItemGroup>
     <Compile Include="DesktopTestSourceHostTests.cs" />
     <Compile Include="ReflectionUtilityTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Adapter\PlatformServices.Desktop\PlatformServices.Desktop.csproj">

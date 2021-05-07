@@ -17,13 +17,15 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <NoWarn>1685</NoWarn>
+    <NoWarn>1685; NETSDK1023</NoWarn>
   </PropertyGroup>
+
   <PropertyGroup>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
+  
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -70,6 +72,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Aliases>FrameworkV1</Aliases>
+      <HintPath>$(MicrosoftVisualStudioQualityToolsPath)</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -103,17 +106,6 @@
     <Compile Include="Services\UniversalFileOperationsTests.cs" />
     <Compile Include="Services\UniversalTestSourceTests.cs" />
   </ItemGroup>
-
-  <!-- <ProjectReference Include="..\..\..\src\Adapter\PlatformServices.Universal\PlatformServices.Universal.csproj">
-    <Project>{5D153CAA-80C2-4551-9549-6C406FCEEFB1}</Project>
-    <Name>PlatformServices.Universal</Name>
-    <NoWarn>NU1201</NoWarn>
-  </ProjectReference>
-  <ProjectReference Include="..\..\..\src\TestFramework\Extension.UWP\Extension.UWP.csproj">
-    <Project>{DF131865-84EE-4540-8112-E88ACEBDEA09}</Project>
-    <Name>Extension.UWP</Name>
-    <NoWarn>NU1201</NoWarn>
-  </ProjectReference> -->
 
   <PropertyGroup>
     <SourcePath>$(TargetDir)..\</SourcePath>

@@ -33,6 +33,13 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <_QualityTools_Path1>$(NuGetPackageRoot)Microsoft.VisualStudio.QualityTools\$(VisualStudioQualityToolsUnitTestFrameworkVersion)\contentFiles\any\any\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</_QualityTools_Path1>
+    <_QualityTools_Path2>$(NuGetPackageRoot)Microsoft.VisualStudio.QualityTools.$(VisualStudioQualityToolsUnitTestFrameworkVersion)\contentFiles\any\any\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</_QualityTools_Path2>
+    <MicrosoftVisualStudioQualityToolsPath Condition="Exists('$(_QualityTools_Path1)')">$(_QualityTools_Path1)</MicrosoftVisualStudioQualityToolsPath>
+    <MicrosoftVisualStudioQualityToolsPath Condition="Exists('$(_QualityTools_Path2)')">$(_QualityTools_Path2)</MicrosoftVisualStudioQualityToolsPath>
+  </PropertyGroup>
+
   <!-- Code analysis settings -->
   <PropertyGroup>
     <RunCodeAnalysis>false</RunCodeAnalysis>
