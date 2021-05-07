@@ -49,6 +49,14 @@ stages:
         preSteps:
         - checkout: self
           clean: true
+        - task: PowerShell@2
+          displayName: Install Windows SDK 10.0.14393.795
+          inputs:
+            targetType: 'inline'
+            script: |
+              Invoke-WebRequest -Method Get -Uri https://go.microsoft.com/fwlink/p/?LinkId=838916 -OutFile sdksetup.exe -UseBasicParsing
+              Start-Process -Wait sdksetup.exe -ArgumentList "/q", "/norestart", "/ceip off", "/features OptionId.WindowsSoftwareDevelopmentKit"
+            failOnStderr: true
         steps:
         - script: eng\common\cibuild.cmd
             -configuration $(_BuildConfig)

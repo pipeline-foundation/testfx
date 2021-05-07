@@ -17,7 +17,8 @@ namespace MSTestAdapter.PlatformServices.Tests.Services
     using System;
     using System.Reflection;
     using Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices;
-#pragma warning disable SA1649 // SA1649FileNameMustMatchTypeName
+
+    #pragma warning disable SA1649, SA1201, SA1402
 
     [TestClass]
     public class DiaSessionOperationsTests

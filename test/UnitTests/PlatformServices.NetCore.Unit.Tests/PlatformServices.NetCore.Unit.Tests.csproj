@@ -11,7 +11,7 @@
     <RootNamespace>MSTestAdapter.PlatformServices.NetCore.UnitTests</RootNamespace>
     <AssemblyName>MSTestAdapter.PlatformServices.NetCore.UnitTests</AssemblyName>
     <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
-    <NoWarn>CS1685;NETSDK1023</NoWarn>
+    <NoWarn>CS1685;SA1402;NETSDK1023;</NoWarn>
   </PropertyGroup>
   <Import Project="$(TestFxRoot)scripts\build\TestFx.Settings.targets" />
   
