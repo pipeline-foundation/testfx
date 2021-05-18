@@ -1,21 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <TestFxRoot Condition="$(TestFxRoot) == ''">..\..\</TestFxRoot>
-    <RepoRoot Condition="$(RepoRoot) == ''">$(MSBuildThisFileDirectory)..\..\</RepoRoot>
-    <IncludeMicrosoftCommon Condition="$(IncludeMicrosoftCommon) == ''">true</IncludeMicrosoftCommon>
-
-    <_OrginalVersionsPropsPath Condition="$(_OrginalVersionsPropsPath) == ''">$(VersionsPropsPath)</_OrginalVersionsPropsPath>
-    <VersionsPropsPath Condition="$(VersionsPropsPath) == ''">$(RepoRoot)eng\Versions.props</VersionsPropsPath>
+    <TestFxRoot Condition=" '$(TestFxRoot)' == '' ">..\..\</TestFxRoot>
+    <RepoRoot Condition=" '$(RepoRoot)' == '' ">$(MSBuildThisFileDirectory)..\..\</RepoRoot>
+    <IncludeMicrosoftCommon Condition=" '$(IncludeMicrosoftCommon)' == '' ">true</IncludeMicrosoftCommon>
   </PropertyGroup>
 
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props') and $(FrameworkIdentifier) != 'NetCore' and $(IncludeMicrosoftCommon) == 'true'" />
-
-  <!-- This is imported by MicroBuild NuGet package -->
-  <!-- <Import Project="$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.props" Condition="Exists('$(NuGetPackageRoot)MicroBuild.Core\$(MicroBuildVersion)\build\MicroBuild.Core.props')" /> -->
-  
-  <!-- This is imported by the Arcade -->
-  <!-- <Import Project="$(VersionsPropsPath)" Condition="$(_OrginalVersionsPropsPath) == ''" />  -->
 
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -27,23 +18,21 @@
     <!-- <SignAssembly>true</SignAssembly> -->
     <PublicSign Condition="'$(IsLocalizedBuild)' == '' or '$(IsLocalizedBuild)' != 'true'">true</PublicSign>
     <!-- Temporarily turning on Delay signing for Localized builds because publickey = true is not passed on to the assembler to create resource assmblies.-->
-    <DelaySign Condition="'$(IsLocalizedBuild)' == 'true'">true</DelaySign>
-    <OutputPath Condition="$(OutputPath) == ''">$(TestFxRoot)artifacts\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
-    <IntermediatePath Condition="$(IntermediatePath) == ''">$(TestFxRoot)artifacts\$(Configuration)\$(MSBuildProjectName)\obj\</IntermediatePath>
+    <DelaySign Condition=" '$(IsLocalizedBuild)' == 'true' ">true</DelaySign>
+    <OutputPath Condition=" '$(OutputPath)' == '' ">$(TestFxRoot)artifacts\$(Configuration)\$(MSBuildProjectName)\</OutputPath>
+    <IntermediatePath Condition=" '$(IntermediatePath)' == '' ">$(TestFxRoot)artifacts\$(Configuration)\$(MSBuildProjectName)\obj\</IntermediatePath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 
   <PropertyGroup>
     <_QualityTools_Path1>$(NuGetPackageRoot)Microsoft.VisualStudio.QualityTools\$(VisualStudioQualityToolsUnitTestFrameworkVersion)\contentFiles\any\any\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</_QualityTools_Path1>
-    <_QualityTools_Path2>$(NuGetPackageRoot)Microsoft.VisualStudio.QualityTools.$(VisualStudioQualityToolsUnitTestFrameworkVersion)\contentFiles\any\any\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</_QualityTools_Path2>
-    <MicrosoftVisualStudioQualityToolsPath Condition="Exists('$(_QualityTools_Path1)')">$(_QualityTools_Path1)</MicrosoftVisualStudioQualityToolsPath>
-    <MicrosoftVisualStudioQualityToolsPath Condition="Exists('$(_QualityTools_Path2)')">$(_QualityTools_Path2)</MicrosoftVisualStudioQualityToolsPath>
+    <MicrosoftVisualStudioQualityToolsPath Condition=" '$(MicrosoftVisualStudioQualityToolsPath)' == '' ">$(_QualityTools_Path1)</MicrosoftVisualStudioQualityToolsPath>
   </PropertyGroup>
 
   <!-- Code analysis settings -->
   <PropertyGroup>
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)stylecop.ruleset</CodeAnalysisRuleSet>
-    <CodeAnalysisRuleSet Condition="$(IsTest) == 'true'">$(MSBuildThisFileDirectory)stylecop.test.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition=" '$(IsTest)' == 'true' ">$(MSBuildThisFileDirectory)stylecop.test.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 </Project>

@@ -8,17 +8,15 @@ Param(
     [System.String] $Configuration = "Release"
 )
 
+. $PSScriptRoot\common.lib.ps1
+
 #
 # Variables
 #
 Write-Verbose "Setup environment variables."
-$TF_ROOT_DIR = (Get-Item (Split-Path $MyInvocation.MyCommand.Path)).Parent.FullName
-$TF_PACKAGES_DIR = Join-Path $TF_ROOT_DIR "packages"
-$TF_OUT_DIR = Join-Path $TF_ROOT_DIR "artifacts"
-$TF_PortablePdbs =@("PlatformServices.NetCore\netstandard1.5\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.pdb")
+$TF_PortablePdbs = @("PlatformServices.NetCore\netstandard1.5\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.pdb")
 
-$TF_VERSIONS_FILE = "$TF_ROOT_DIR\eng\Versions.props"
-$PdbConverterToolVersion = (([XML](Get-Content $TF_VERSIONS_FILE)).Project.PropertyGroup.MicrosoftDiaSymReaderPdb2PdbVersion)
+$PdbConverterToolVersion = Get-PackageVersion -PackageName "MicrosoftDiaSymReaderPdb2PdbVersion"
 
 function Locate-PdbConverterTool
 {

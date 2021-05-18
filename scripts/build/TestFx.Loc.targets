@@ -23,13 +23,13 @@
 
   <!-- Localization for Libraries.
   'UseSharedResources' flag is true for desktop and netcore as their resources are common and present at a shared location -->
-  <Target Name="TestFxLocalization" Condition="$(IsVsixProj) =='' and $(IsVsixProj) !='true'" BeforeTargets="BeforeBuild" DependsOnTargets="GatherResxResources">
-    <CallTarget Targets="CreateLocalizeXLF;CreateLocalizeResx" Condition="'$(HasResxResources)' == 'true' and '$(UseSharedResources)' == ''"/>
-    <CallTarget Targets="CreateLocalizeXLFShared;CreateLocalizeResxShared" Condition="'$(HasResxResources)' == 'true' and '$(UseSharedResources)' == 'true'"/>
+  <Target Name="TestFxLocalization" Condition=" '$(IsVsixProj)' == '' and '$(IsVsixProj)' !='true' " BeforeTargets="BeforeBuild" DependsOnTargets="GatherResxResources">
+    <CallTarget Targets="CreateLocalizeXLF;CreateLocalizeResx" Condition=" '$(HasResxResources)' == 'true' and '$(UseSharedResources)' == '' "/>
+    <CallTarget Targets="CreateLocalizeXLFShared;CreateLocalizeResxShared" Condition=" '$(HasResxResources)' == 'true' and '$(UseSharedResources)' == 'true' "/>
   </Target>
 
   <!-- Generate xlf files from Resources.resx by using command Build.cmd -uxlf -->
-  <Target Name="CreateLocalizeXLF" Condition="'$(UpdateXlf)' == 'true'">
+  <Target Name="CreateLocalizeXLF" Condition=" '$(UpdateXlf)' == 'true' ">
     <CreateItem Include="@(ResxResources)" AdditionalMetadata="Language=%(ResxLang.Identity)">
       <Output ItemName="LocResourceFile" TaskParameter="Include"/>
     </CreateItem>
@@ -38,7 +38,7 @@
   </Target>
 
   <!-- Generate xlf files from Resources.resx for shared resources by using command Build.cmd -uxlf -->
-  <Target Name="CreateLocalizeXLFShared" Condition="'$(UpdateXlf)' == 'true'">
+  <Target Name="CreateLocalizeXLFShared" Condition=" '$(UpdateXlf)' == 'true' ">
     <CreateItem Include="@(ResxResources)" AdditionalMetadata="Language=%(ResxLang.Identity)">
       <Output ItemName="LocResourceFile" TaskParameter="Include"/>
     </CreateItem>
@@ -47,7 +47,7 @@
   </Target>
 
   <!-- Generate language specific resx files from the xlf files -->
-  <Target Name="CreateLocalizeResx" Condition="'$(IsLocalizedBuild)' == 'true'">
+  <Target Name="CreateLocalizeResx" Condition=" '$(IsLocalizedBuild)' == 'true' ">
     <CreateItem Include="@(ResxResources)" AdditionalMetadata="Language=%(ResxLang.Identity)">
       <Output ItemName="LocResourceFile" TaskParameter="Include"/>
     </CreateItem>
@@ -58,7 +58,7 @@
   </Target>
 
   <!-- Generate language specific resx files from the xlf files for shared resources -->
-  <Target Name="CreateLocalizeResxShared" Condition="'$(IsLocalizedBuild)' == 'true'">
+  <Target Name="CreateLocalizeResxShared" Condition=" '$(IsLocalizedBuild)' == 'true' ">
     <CreateItem Include="@(ResxResources)" AdditionalMetadata="Language=%(ResxLang.Identity)">
       <Output ItemName="LocResourceFile" TaskParameter="Include"/>
     </CreateItem>
@@ -69,7 +69,7 @@
   </Target>
   
   <!-- Localization for documentation files. -->
-  <Target Name="CopyLocalizedXmls" BeforeTargets="BeforeBuild" Condition="$(LocDocumentationSubPath) != ''">
+  <Target Name="CopyLocalizedXmls" BeforeTargets="BeforeBuild" Condition=" '$(LocDocumentationSubPath)' != ''">
     <PropertyGroup>
       <_SourcePath>$(NuGetPackageRoot)MSTest.Internal.TestFx.Localized.Documentation\$(MsTestInternalTestFxLocalizedDocumentationVersion)\contentFiles\any\any\$(LocDocumentationSubPath)</_SourcePath>
     </PropertyGroup>
