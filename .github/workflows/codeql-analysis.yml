@@ -23,6 +23,7 @@ jobs:
         id: init_codeql
         uses: github/codeql-action/init@v1
         with:
+          language: csharp
           queries: security-and-quality
 
       - name: Build solution
