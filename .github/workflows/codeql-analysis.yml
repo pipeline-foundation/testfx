@@ -26,7 +26,7 @@ jobs:
         id: build_solution 
         shell: pwsh
         run: |
-          .\build.cmd
+          .\scripts\Build.ps1
 
       - name: Perform CodeQL Analysis
         id: analyze_codeql
