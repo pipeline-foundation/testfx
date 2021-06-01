@@ -22,9 +22,11 @@ jobs:
         with:
           queries: security-and-quality
 
-      - name: Autobuild
-        id: auto_build 
-        uses: github/codeql-action/autobuild@v1
+      - name: Build solution
+        id: build_solution 
+        shell: pwsh
+        run: |
+          .\build.cmd
 
       - name: Perform CodeQL Analysis
         id: analyze_codeql
