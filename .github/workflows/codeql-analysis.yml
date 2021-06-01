@@ -23,10 +23,9 @@ jobs:
           queries: security-and-quality
 
       - name: Build solution
-        id: build_solution 
-        shell: pwsh
+        id: build_solution
         run: |
-          dotnet build .\TestFx.sln --configuration Release
+          msbuild .\TestFx.sln
 
       - name: Perform CodeQL Analysis
         id: analyze_codeql
