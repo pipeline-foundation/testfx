@@ -28,7 +28,8 @@ jobs:
       - name: Build solution
         id: build_solution
         run: |
-          msbuild .\TestFx.sln -t:restore,build
+          nuget restore .\TestFx.sln
+          msbuild .\TestFx.sln
 
       - name: Perform CodeQL Analysis
         id: analyze_codeql
