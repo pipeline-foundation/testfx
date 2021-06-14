@@ -30,7 +30,7 @@ jobs:
         id: build_solution
         run: |
           nuget restore .\TestFx.sln
-          msbuild .\TestFx.sln
+          msbuild .\TestFx.sln /p:UseSharedCompilation=false
           
       - name: Perform CodeQL Analysis
         id: analyze_codeql
